@@ -27,9 +27,10 @@ Este projeto foi desenvolvido como exercício técnico para portfólio, **inspir
 | **Tutorial integrado** | 5 seções explicativas com referências científicas |
 | **Localização PT-BR** | Interface e conteúdo em português |
 
+
 ## Captura de tela
 
-*(adicione aqui um screenshot do app rodando)*
+![Manhattan plot do GWAS Explorer](screenshots/01_manhattan.png)
 
 ## Instalação
 
