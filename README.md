@@ -6,7 +6,7 @@
 [![Shiny](https://img.shields.io/badge/Shiny-1.8%2B-blue)](https://shiny.posit.co/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Demo ao vivo:** *(em breve no shinyapps.io)*
+**Demo ao vivo:** [gabrieldevillela.shinyapps.io/gwas-explorer](https://gabrieldevillela.shinyapps.io/gwas-explorer/)
 
 ---
 
@@ -24,6 +24,7 @@ Este projeto foi desenvolvido como exercício técnico para portfólio, **inspir
 | **Manhattan plot interativo** | Zoom, hover com detalhes, limiares configuráveis |
 | **QQ plot diagnóstico** | Banda de confiança 95% e fator de inflação λ |
 | **Tabela filtrável** | SNPs significativos com exportação CSV |
+| **Anotação genômica** | Clique em qualquer SNP para ver genes próximos com link direto ao NCBI. Suporta *Coffea arabica* (ET-39, Caturra) e *Glycine max* (Williams 82). Exportação CSV individual e em lote |
 | **Tutorial integrado** | 5 seções explicativas com referências científicas |
 | **Localização PT-BR** | Interface e conteúdo em português |
 
@@ -31,6 +32,8 @@ Este projeto foi desenvolvido como exercício técnico para portfólio, **inspir
 ## Captura de tela
 
 ![Manhattan plot do GWAS Explorer](screenshots/01_manhattan.png)
+
+![Painel de anotação genômica após clicar em um SNP](screenshots/02_annotation.png)
 
 ## Instalação
 
@@ -62,9 +65,11 @@ gwas-explorer/
 ├── R/
 │   ├── plots.R           # Manhattan e QQ plot (ggplot + plotly)
 │   ├── utils.R           # Parser de arquivos, cálculo de λ
+│   ├── annotation.R      # Busca de genes próximos a SNPs (multi-genoma)
 │   └── render_md.R       # Renderização de Markdown via commonmark
 ├── data/
-│   └── simulate_gwas.R   # Gerador do dataset demo
+│   ├── simulate_gwas.R   # Gerador do dataset demo
+│   └── annotations/      # Anotações genômicas (.rds): ET-39, Caturra, Wm82
 ├── www/
 │   ├── styles.css        # Estilos da aba Tutorial
 │   └── tutorial/         # 5 seções em Markdown
@@ -73,9 +78,10 @@ gwas-explorer/
 
 ## Roadmap
 
-Funcionalidades planejadas para versões futuras:
+**v0.2 (atual):** anotação genômica multi-genoma entregue — suporta *Coffea arabica* (ET-39, Caturra) e *Glycine max* (Williams 82).
 
-- **Anotação genômica integrada** para *Coffea arabica*: ao clicar em um SNP, exibir genes próximos via GFF de referência
+Próximas versões:
+
 - **Comparação lado a lado** de dois GWAS (traits ou populações distintas)
 - **Exportação em alta resolução** (SVG vetorial, PNG 300 dpi)
 - **Modo escuro** opcional
