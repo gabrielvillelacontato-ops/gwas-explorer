@@ -1,6 +1,6 @@
 # global.R ---------------------------------------------------------------
 # GWAS Explorer — Interactive GWAS results visualization
-# Author: Mauro Vinicius
+# Author: Mauro Villela
 # Stack:  R · Shiny · bslib · plotly · DT
 
 suppressPackageStartupMessages({
@@ -17,7 +17,7 @@ source("R/render_md.R")
 # ---- Constants ---------------------------------------------------------
 
 APP_TITLE <- "GWAS Explorer"
-APP_VERSION <- "0.1.0"
+APP_VERSION <- "0.2.0"
 
 SUPPORTED_FORMATS <- c(
   "TASSEL (GLM / MLM)" = "tassel",
