@@ -69,7 +69,7 @@ make_manhattan <- function(
   palette <- c("0" = "#1D9E75", "1" = "#534AB7")
 
   p <- ggplot(df, aes(x = pos_cum, y = logp, color = color_alt,
-                       text = hover_text)) +
+                      text = hover_text, key = Marker)) +
     # Background SNPs
     geom_point(data = filter(df, !highlighted),
                size = 1.4, alpha = 0.7, shape = 16) +
@@ -94,7 +94,7 @@ make_manhattan <- function(
     theme_minimal(base_size = 12) +
     theme(
       legend.position      = "none",
-      axis.text.x          = element_text(angle = 45, hjust = 1, size = 9),
+      axis.text.x          = element_text(angle = 60, hjust = 1, size = 8),
       panel.grid.major.x   = element_blank(),
       panel.grid.minor     = element_blank(),
       plot.background      = element_rect(fill = "transparent", color = NA),
@@ -103,15 +103,17 @@ make_manhattan <- function(
     )
 
   # ---- Convert to plotly ----
-  ggplotly(p, tooltip = "text") %>%
+  ggplotly(p, tooltip = "text", source = "manhattan_click") %>%
     layout(
       paper_bgcolor = "rgba(0,0,0,0)",
       plot_bgcolor  = "rgba(0,0,0,0)",
-      legend        = list(orientation = "h", y = -0.15)
+      legend        = list(orientation = "h", y = -0.15),
+      xaxis         = list(tickangle = -60, tickfont = list(size = 10))
     ) %>%
     config(displayModeBar = TRUE,
            modeBarButtonsToRemove = c("select2d", "lasso2d", "autoScale2d"),
-           displaylogo = FALSE)
+           displaylogo = FALSE) %>%
+    event_register("plotly_click")
 }
 
 # ---- make_qq -----------------------------------------------------------

@@ -14,9 +14,9 @@ parse_gwas_file <- function(file_path, format = "tassel") {
   raw <- tryCatch(
     switch(format,
       tassel  = read_tsv(file_path, show_col_types = FALSE, comment = "##"),
-      gapit   = read_csv(file_path, show_col_types = FALSE),
+      gapit   = read_csv(file_path, show_col_types = FALSE, comment = "#"),
       plink   = read_table(file_path, col_types = cols()),
-      generic = read_csv(file_path, show_col_types = FALSE)
+      generic = read_csv(file_path, show_col_types = FALSE, comment = "#")
     ),
     error = function(e) {
       stop("N\u00e3o foi poss\u00edvel ler o arquivo. Verifique se o formato est\u00e1 correto.\n",
@@ -103,5 +103,13 @@ summarise_gwas <- function(gwas_df, sig_logp = 5, sug_logp = 3) {
 # Extracts an integer from chromosome labels like "1", "Chr1", "Ca01", etc.
 
 chr_to_int <- function(chr_vec) {
-  suppressWarnings(as.integer(str_extract(chr_vec, "[0-9]+")))
+  # Extrai numero base do nome do cromossomo
+  base_num <- suppressWarnings(as.integer(stringr::str_extract(chr_vec, "[0-9]+")))
+  
+  # Para C. arabica: distinguir subgenomas c (canephora) e e (eugenioides)
+  # Chr1c-Chr11c -> 1-11, Chr1e-Chr11e -> 12-22
+  is_eugenioides <- grepl("e$", chr_vec, ignore.case = FALSE)
+  result <- ifelse(is_eugenioides & !is.na(base_num), base_num + 11L, base_num)
+  
+  as.integer(result)
 }
